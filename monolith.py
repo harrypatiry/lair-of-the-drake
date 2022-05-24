@@ -1,4 +1,4 @@
-import os, random
+import os, random, sys
 
 run = True
 menu = True
@@ -24,6 +24,7 @@ HGRMAX = 50
 FOOD = 2
 x = 0
 y = 0
+
         #  x = 0       x = 1       x = 2       x = 3       x = 4       x = 5         x = 6
 map = [["plains",   "plains",   "plains",    "plains",    "forest", "mountain",       "cave"],    # y = 0
        ["forest",   "forest",   "forest",    "galren",    "forest",    "hills",   "mountain"],    # y = 1
@@ -136,6 +137,8 @@ def save():
         str(PTN),
         str(ELX),
         str(GLD),
+        str(HGR),
+        str(FOOD),
         str(x),
         str(y),
         str(key)
@@ -447,7 +450,7 @@ while run:
             try:
                 f = open("load.txt", "r")
                 load_list = f.readlines()
-                if len(load_list) == 9:
+                if len(load_list) == 11:
                     name = load_list[0][:-1]
                     HP = int(load_list[1][:-1])
                     ATK = int(load_list[2][:-1])
@@ -455,9 +458,10 @@ while run:
                     ELX = int(load_list[4][:-1])
                     GLD = int(load_list[5][:-1])
                     HGR = int(load_list[6][:-1])
-                    x = int(load_list[7][:-1])
-                    y = int(load_list[8][:-1])
-                    key = bool(load_list[9][:-1])
+                    FOOD = int(load_list[7][:-1])
+                    x = int(load_list[8][:-1])
+                    y = int(load_list[9][:-1])
+                    key = bool(load_list[10][:-1])
                     clear()
                     print("Welcome Back, " + name + ".")
                     input("> ")
@@ -486,6 +490,11 @@ while run:
             draw()
             print("LOCATION: " + biome[map[y][x]]["t"])
             draw()
+            # if map[x]:
+            #     sys.stdout.write("[U]")
+            # if map[y]:
+            #     sys.stdout.write("[U]")
+            # draw()
             print("Name: " + name)
             print("Health: " + str(HP) + "/" + str(HPMAX))
             print("Hunger: " + str(HGR))
@@ -497,21 +506,21 @@ while run:
             draw()
             print("0 - SAVE AND QUIT")
             if y > 0:
-                print("1 - North")
-            if x < x_len:
-                print("2 - East")
-            if y < y_len:
-                print("3 - South")
+                print("W - North")
             if x > 0:
-                print("4 - West")
+                print("A - West")
+            if y < y_len:
+                print("S - South")
+            if x < x_len:
+                print("D - East")
             if PTN > 0:
-                print("5 - Use Potion (30HP)")
+                print("1 - Use Potion (30HP)")
             if ELX > 0:
-                print("6 - Use Elixer (50HP)")
+                print("2 - Use Elixer (50HP)")
             if FOOD > 0:
-                print("7 - Eat food (50HGR)")
+                print("3 - Eat food (50HGR)")
             if map[y][x] == "lief" or map[y][x] == "stolig" or map[y][x] == "galren" or map[y][x] == "displacer" or map[y][x] == "cave":
-                print("8 - Enter")
+                print("4 - Enter")
             draw()
 
             dest = input("# ")
@@ -520,27 +529,27 @@ while run:
                 play = False
                 menu = True
                 save()
-            elif dest == "1":
+            elif dest == "w":
                 if y > 0:
                     y -= 1
                     standing = False
                     hunger()
-            elif dest == "2":
+            elif dest == "d":
                 if x < x_len:
                     x += 1
                     standing = False
                     hunger()
-            elif dest == "3":
+            elif dest == "s":
                 if y < y_len:
                     y += 1
                     standing = False
                     hunger()
-            elif dest == "4":
+            elif dest == "a":
                 if x > 0:
                     x -= 1
                     standing = False
                     hunger()
-            elif dest == "5":
+            elif dest == "1":
                 if PTN > 0:
                     PTN -= 1
                     heal(30)
@@ -548,7 +557,7 @@ while run:
                     print("You do not have any potions.")
                 input("> ")
                 standing = True
-            elif dest == "6":
+            elif dest == "2":
                 if ELX > 0:
                     ELX -= 1
                     heal(50)
@@ -556,7 +565,7 @@ while run:
                     print("You do not have any elixers.")
                 input("> ")
                 standing = True
-            elif dest == "7":
+            elif dest == "3":
                 if FOOD > 0:
                     FOOD -= 1
                     eat(50)
@@ -564,7 +573,7 @@ while run:
                     print("You do not have any food.")
                 input("> ")
                 standing = True
-            elif dest == "8":
+            elif dest == "4":
                 if map[y][x] == "lief":
                     trade_lief = True
                     lief()
