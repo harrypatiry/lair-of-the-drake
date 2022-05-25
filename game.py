@@ -104,13 +104,14 @@ biome = {
 def print_map(map):
     clear()
     draw()
-    for column in range(len(map)):
-        for row in range(len(map)):
-            if map[column][row] == 'X' or 'P':
-                map[column][row] = '░'
-            elif map[column][row] == 1:
-                map[column][row] = ' '
-            print(map[column][row], end="")
+    output = [ele[:] for ele in map]
+    for column in range(len(output)):
+        for row in range(len(output)):
+            if output[column][row] == 'X' or 'P':
+                output[column][row] = '░'
+            elif output[column][row] == 1:
+                output[column][row] = ' '
+            print(output[column][row], end="")
         print()
 
 
