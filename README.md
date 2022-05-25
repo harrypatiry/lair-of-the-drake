@@ -1,2 +1,2 @@
-# path-to-the-monolith
+# Lair of The Drake
 text based rpg game
