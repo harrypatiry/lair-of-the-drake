@@ -36,9 +36,9 @@ y = 0
 #        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"],    # y = 6
 #        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"]]    # y = 7
 #        0    1    2    3    4    5    6    7    8    9    10   11   12  13   14   15   16   17
-map = [['P', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], # 0
-       ['P', 'X', 'X', 'X', 'X',   1,   1,   1, 'T', 'T',   1, 'X', 'X', 'X', 'X', 'X',   1, 'B'], # 1
-       ['P', 'X', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X', 'X',   1, 'X'], # 2
+map = [[  1,   1, 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], # 0
+       ['P',   1,   1, 'X', 'X',   1,   1,   1, 'T', 'T',   1, 'X', 'X', 'X', 'X', 'X',   1, 'B'], # 1
+       ['P',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X', 'X',   1, 'X'], # 2
        ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'C',   1,   1, 'X'], # 3
        ['P', 'X',   1,   1,   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X'], # 4
        ['P', 'M',   1,   1,   1,   1,   1, 'L',   1, 'X', 'D',   1,   1,   1,   1,   1, 'X', 'X'], # 5
@@ -49,10 +49,10 @@ map = [['P', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X
        ['P', 'X',   1, 'X', 'M', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X'], # 10
        ['P', 'X', 'X', 'X', 'M', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X'], # 11
        ['P', 'X', 'X',   1, 'G', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X'], # 12
-       ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X'], # 13
-       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'S', 'X', 'X'], # 14
-       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X', 'X'], # 15
-       ['P',   1,   1, 'X',   1,   1,   1,   1, 'T', 'T', 'T',   1,   1, 'X', 'X', 'X', 'X', 'X'], # 16
+       ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'H', 'X'], # 13
+       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'S', 'M', 'X'], # 14
+       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'M', 'M', 'M', 'X'], # 15
+       ['P',   1,   1, 'X',   1,   1,   1,   1, 'T', 'T', 'T',   1,   1, 'X', 'M', 'M', 'M', 'X'], # 16
        ['P',   1, 'X', 'X', 'X', 'X', 'X', 'H', 'H', 'X', 'X',   1, 'X', 'X', 'X', 'X', 'X', 'X']] # 17
 
 y_len = len(map)-1
@@ -93,7 +93,7 @@ biome = {
         "e": True,
     },
     "B": {
-        "t": "BOSS",
+        "t": "DRAKE",
         "e": True,
     },
     "o": {
@@ -102,53 +102,13 @@ biome = {
     }
 }
 
-# biome = {
-#     "plains": {
-#         "t": "PLAINS",
-#         "e": True},
-#     "forest": {
-#         "t": "WOODS",
-#         "e": True},
-#     "fields": {
-#         "t": "FIELDS",
-#         "e": False},
-#     "bridge": {
-#         "t": "BRIGE",
-#         "e": True},
-#     "town": {
-#         "t": "TOWN CENTRE",
-#         "e": False},
-#     "lief": {
-#         "t": "LIEF",
-#         "e": False},
-#     "stolig": {
-#         "t": "STOLIG",
-#         "e": False},
-#     "galren": {
-#         "t": "GALREN",
-#         "e": False},
-#     "displacer": {
-#         "t": "DISPLACER",
-#         "e": False},
-#     "cave": {
-#         "t": "CAVE",
-#         "e": False},
-#     "mountain": {
-#         "t": "MOUNTAIN",
-#         "e": True},
-#     "hills": {
-#         "t": "HILLS",
-#         "e": True,
-#     }
-# }
-
-# def print_map(map):
-#     for row in map:
-#         for i, column in enumerate(row):
-#             if column == "o":
-#                 if i > 0 and row[i - 1] == 1:
-#                     row[i - 1] = 'i'
-#                     row[i] = ' '
+def print_map(map):
+    clear()
+    draw()
+    for row in map:
+        for column in row:
+            print(column, end=" ")
+        print()
 
 e_list = ["Goblin", "Orc", "Fiend", "Celestial", "Ghoul", "Golem", "Ogre"]
 
@@ -188,7 +148,7 @@ mobs = {
         "eatk": 6,
         'eg': 15
     },
-    "Dragon": {
+    "Drake": {
         "ehp": 100,
         "eatk": 15,
         'eg': 100
@@ -238,7 +198,7 @@ def battle():
     if not boss:
         enemy = random.choice(e_list)
     else:
-        enemy = "Dragon"
+        enemy = "Drake"
     ehp = mobs[enemy]["ehp"]
     ehpmax = ehp
     eatk = mobs[enemy]["eatk"]
@@ -311,7 +271,7 @@ def battle():
             if random.randint(0, 100) < 5:
                 ELX += 1
                 print("You've found an elixer.")
-                if enemy == "Dragon":
+                if enemy == "Drake":
                     print("It's not over")
                     boss = False
             input("> ")
@@ -447,7 +407,7 @@ def displacer():
         choice = input("# ")
         if choice == "1":
             if ATK < 15:
-                print("You're not strong enough to fight the dragon.")
+                print("You're not strong enough to fight the drake.")
                 key = False
             else:
                 print("Here is the key, but be warned no traveler has come out of the dungeon alive.")
@@ -467,7 +427,7 @@ def cave():
     while boss:
         clear()
         draw()
-        print("A dragon lurks beyond the dungeon doors, What will you do?")
+        print("A drake lurks beyond the dungeon doors, What will you do?")
         draw()
         if key:
             print("1 - Use key")
@@ -562,10 +522,9 @@ while run:
                     fight = True
                     battle()
         if play:
+            print_map(map)
             draw()
             print("LOCATION: " + biome[map[y][x]]["t"])
-            draw()
-            # print_map(map)
             draw()
             print("Name: " + name)
             print("Health: " + str(HP) + "/" + str(HPMAX))
