@@ -1,3 +1,4 @@
+from dataclasses import fields
 import os, random, sys
 
 run = True
@@ -13,67 +14,141 @@ trade_stolig = False
 speak = False
 boss = False
 
-HP = 50
+HP = 50 #health
 HPMAX = 50
-ATK = 5
-PTN = 1
-ELX = 0
-GLD = 100
-HGR = 50 # hunger
+ATK = 5 #attack
+PTN = 1 #potion
+ELX = 0 #elixer
+GLD = 100 #gold
+HGR = 50 #hunger
 HGRMAX = 50
 FOOD = 2
 x = 0
 y = 0
 
-        #  x = 0       x = 1       x = 2       x = 3       x = 4       x = 5         x = 6
-map = [["plains",   "plains",   "plains",    "plains",    "forest", "mountain",       "cave"],    # y = 0
-       ["forest",   "forest",   "forest",    "galren",    "forest",    "hills",   "mountain"],    # y = 1
-       ["forest",   "fields",   "bridge",    "plains",     "hills",   "forest",      "hills"],    # y = 2
-       ["plains",     "lief",     "town", "displacer",    "stolig",    "hills",   "mountain"],    # y = 3
-       ["plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"]]    # y = 4
+        #  x = 0       x = 1       x = 2       x = 3       x = 4       x = 5         x = 6       x = 7
+# map = [["plains",   "plains",   "plains",   "plains",    "plains",    "forest", "mountain",       "cave"],    # y = 0
+#        ["plains",   "forest",   "forest",   "forest",    "galren",    "forest",    "hills",   "mountain"],    # y = 1
+#        ["plains",   "forest",   "fields",   "bridge",    "plains",     "hills",   "forest",      "hills"],    # y = 2
+#        ["plains",   "plains",     "lief",     "town", "displacer",    "stolig",    "hills",   "mountain"],    # y = 3
+#        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"],    # y = 4
+#        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"],    # y = 5
+#        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"],    # y = 6
+#        ["plains",   "plains",   "fields",   "fields",    "plains",     "hills", "mountain",   "mountain"]]    # y = 7
+#        0    1    2    3    4    5    6    7    8    9    10   11   12  13   14   15   16   17
+map = [['P', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'], # 0
+       ['P', 'X', 'X', 'X', 'X',   1,   1,   1, 'T', 'T',   1, 'X', 'X', 'X', 'X', 'X',   1, 'B'], # 1
+       ['P', 'X', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X', 'X',   1, 'X'], # 2
+       ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'C',   1,   1, 'X'], # 3
+       ['P', 'X',   1,   1,   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X'], # 4
+       ['P', 'M',   1,   1,   1,   1,   1, 'L',   1, 'X', 'D',   1,   1,   1,   1,   1, 'X', 'X'], # 5
+       ['P', 'M',   1,   1,   1,   1,   1,   1, 'X', 'H', 'X',   1,   1,   1,   1,   1,   1, 'X'], # 6
+       ['P', 'H',   1,   1,   1,   1,   1,   1,   1, 'X', 'X',   1,   1,   1,   1,   1,   1, 'X'], # 7
+       ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'T', 'T',   1,   1,   1], # 8
+       ['P', 'X',   1,   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X'], # 9
+       ['P', 'X',   1, 'X', 'M', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X'], # 10
+       ['P', 'X', 'X', 'X', 'M', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X'], # 11
+       ['P', 'X', 'X',   1, 'G', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X'], # 12
+       ['P', 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X'], # 13
+       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'S', 'X', 'X'], # 14
+       ['P', 'X',   1, 'X',   1,   1,   1,   1,   1,   1,   1,   1,   1,   1, 'X', 'X', 'X', 'X'], # 15
+       ['P',   1,   1, 'X',   1,   1,   1,   1, 'T', 'T', 'T',   1,   1, 'X', 'X', 'X', 'X', 'X'], # 16
+       ['P',   1, 'X', 'X', 'X', 'X', 'X', 'H', 'H', 'X', 'X',   1, 'X', 'X', 'X', 'X', 'X', 'X']] # 17
 
 y_len = len(map)-1
 x_len = len(map[0])-1
-
 biome = {
-    "plains": {
-        "t": "PLAINS",
+    "P": {
+        "t": "ERROR",
         "e": True},
-    "forest": {
+    "X": {
         "t": "WOODS",
         "e": True},
-    "fields": {
+    1: {
         "t": "FIELDS",
         "e": False},
-    "bridge": {
-        "t": "BRIGE",
-        "e": True},
-    "town": {
+    "T": {
         "t": "TOWN CENTRE",
         "e": False},
-    "lief": {
+    "L": {
         "t": "LIEF",
         "e": False},
-    "stolig": {
+    "S": {
         "t": "STOLIG",
         "e": False},
-    "galren": {
+    "G": {
         "t": "GALREN",
         "e": False},
-    "displacer": {
+    "D": {
         "t": "DISPLACER",
         "e": False},
-    "cave": {
+    "C": {
         "t": "CAVE",
         "e": False},
-    "mountain": {
+    "M": {
         "t": "MOUNTAIN",
         "e": True},
-    "hills": {
+    "H": {
         "t": "HILLS",
+        "e": True,
+    },
+    "B": {
+        "t": "BOSS",
+        "e": True,
+    },
+    "o": {
+        "t": "PLAYER",
         "e": True,
     }
 }
+
+# biome = {
+#     "plains": {
+#         "t": "PLAINS",
+#         "e": True},
+#     "forest": {
+#         "t": "WOODS",
+#         "e": True},
+#     "fields": {
+#         "t": "FIELDS",
+#         "e": False},
+#     "bridge": {
+#         "t": "BRIGE",
+#         "e": True},
+#     "town": {
+#         "t": "TOWN CENTRE",
+#         "e": False},
+#     "lief": {
+#         "t": "LIEF",
+#         "e": False},
+#     "stolig": {
+#         "t": "STOLIG",
+#         "e": False},
+#     "galren": {
+#         "t": "GALREN",
+#         "e": False},
+#     "displacer": {
+#         "t": "DISPLACER",
+#         "e": False},
+#     "cave": {
+#         "t": "CAVE",
+#         "e": False},
+#     "mountain": {
+#         "t": "MOUNTAIN",
+#         "e": True},
+#     "hills": {
+#         "t": "HILLS",
+#         "e": True,
+#     }
+# }
+
+# def print_map(map):
+#     for row in map:
+#         for i, column in enumerate(row):
+#             if column == "o":
+#                 if i > 0 and row[i - 1] == 1:
+#                     row[i - 1] = 'i'
+#                     row[i] = ' '
 
 e_list = ["Goblin", "Orc", "Fiend", "Celestial", "Ghoul", "Golem", "Ogre"]
 
@@ -119,12 +194,12 @@ mobs = {
         'eg': 100
     },
 }
-# current_tile = map[x][y]
-# print(current_tile)
-# name_of_tile = biome[current_tile]["t"]
-# print(name_of_tile)
-# enemy_tile = biome[current_tile]["e"]
-# print(enemy_tile)
+current_tile = map[x][y]
+print(current_tile)
+name_of_tile = biome[current_tile]["t"]
+print(name_of_tile)
+enemy_tile = biome[current_tile]["e"]
+print(enemy_tile)
 
 def clear():
     os.system("cls")
@@ -490,11 +565,8 @@ while run:
             draw()
             print("LOCATION: " + biome[map[y][x]]["t"])
             draw()
-            # if map[x]:
-            #     sys.stdout.write("[U]")
-            # if map[y]:
-            #     sys.stdout.write("[U]")
-            # draw()
+            # print_map(map)
+            draw()
             print("Name: " + name)
             print("Health: " + str(HP) + "/" + str(HPMAX))
             print("Hunger: " + str(HGR))
@@ -519,7 +591,7 @@ while run:
                 print("2 - Use Elixer (50HP)")
             if FOOD > 0:
                 print("3 - Eat food (50HGR)")
-            if map[y][x] == "lief" or map[y][x] == "stolig" or map[y][x] == "galren" or map[y][x] == "displacer" or map[y][x] == "cave":
+            if map[y][x] == "L" or map[y][x] == "S" or map[y][x] == "G" or map[y][x] == "D" or map[y][x] == "C":
                 print("4 - Enter")
             draw()
 
@@ -574,19 +646,19 @@ while run:
                 input("> ")
                 standing = True
             elif dest == "4":
-                if map[y][x] == "lief":
+                if map[y][x] == "L":
                     trade_lief = True
                     lief()
-                if map[y][x] == "galren":
+                if map[y][x] == "G":
                     trade_galren = True
                     galren()
-                if map[y][x] == "stolig":
+                if map[y][x] == "S":
                     trade_stolig = True
                     stolig()
-                if map[y][x] == "displacer":
+                if map[y][x] == "D":
                     speak = True
                     displacer()
-                if map[y][x] == "cave":
+                if map[y][x] == "C":
                     boss = True
                     cave()
             else:
