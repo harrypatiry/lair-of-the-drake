@@ -1,4 +1,3 @@
-from dataclasses import fields
 import os, random, sys
 
 run = True
@@ -105,10 +104,15 @@ biome = {
 def print_map(map):
     clear()
     draw()
-    for row in map:
-        for column in row:
-            print(column, end=" ")
+    for column in range(len(map)):
+        for row in range(len(map)):
+            if map[column][row] == 'X' or 'P':
+                map[column][row] = '░'
+            elif map[column][row] == 1:
+                map[column][row] = ' '
+            print(map[column][row], end="")
         print()
+
 
 e_list = ["Goblin", "Orc", "Fiend", "Celestial", "Ghoul", "Golem", "Ogre"]
 
@@ -154,12 +158,12 @@ mobs = {
         'eg': 100
     },
 }
-current_tile = map[x][y]
-print(current_tile)
-name_of_tile = biome[current_tile]["t"]
-print(name_of_tile)
-enemy_tile = biome[current_tile]["e"]
-print(enemy_tile)
+# current_tile = map[x][y]
+# print(current_tile)
+# name_of_tile = biome[current_tile]["t"]
+# print(name_of_tile)
+# enemy_tile = biome[current_tile]["e"]
+# print(enemy_tile)
 
 def clear():
     os.system("cls")
@@ -524,7 +528,7 @@ while run:
         if play:
             print_map(map)
             draw()
-            print("LOCATION: " + biome[map[y][x]]["t"])
+            # print("LOCATION: " + biome[map[y][x]]["t"])
             draw()
             print("Name: " + name)
             print("Health: " + str(HP) + "/" + str(HPMAX))
